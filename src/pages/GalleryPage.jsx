@@ -182,71 +182,71 @@ const GalleryPage = () => {
         </div>
         
         {/* Image Modal */}
-        {selectedImage && (
-          <div 
-            className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
-          >
-            <div 
-              className="relative max-w-6xl w-full max-h-[90vh] bg-gray-900 rounded-xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button 
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
-                onClick={() => setSelectedImage(null)}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              
-              <div className="flex flex-col md:flex-row h-full">
-                <div className="md:w-2/3 flex items-center justify-center p-8">
-                  <img 
-                    src={selectedImage.imageUrl} 
-                    alt={selectedImage.category}
-                    className="max-h-[80vh] max-w-full object-contain"
-                  />
+      {selectedImage && (
+  <div 
+    className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4"
+    onClick={() => setSelectedImage(null)}
+  >
+    <div 
+      className="relative w-full max-w-6xl max-h-[90vh] bg-gray-900 rounded-xl overflow-y-auto flex flex-col md:flex-row"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button 
+        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all"
+        onClick={() => setSelectedImage(null)}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      
+      {/* Image Section */}
+      <div className="w-full md:w-2/3 flex items-center justify-center p-4 bg-black/30">
+        <img 
+          src={selectedImage.imageUrl} 
+          alt={selectedImage.category}
+          className="max-h-[40vh] md:max-h-[80vh] w-auto object-contain"
+        />
+      </div>
+      
+      {/* Info Section */}
+      <div className="w-full md:w-1/3 bg-gray-800 p-4 md:p-6">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-4">{selectedImage.category} Analysis</h2>
+        
+        <div className="mb-5">
+          <h3 className="text-md md:text-lg font-semibold text-blue-400 mb-2">Species Included</h3>
+          <div className="space-y-2">
+            {selectedImage.species.map((specie, idx) => (
+              <div key={idx} className="flex items-start bg-gray-700/50 rounded-lg p-3">
+                <div className="bg-blue-500 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center flex-shrink-0 mr-2 md:mr-3">
+                  <span className="text-white text-sm md:text-base font-bold">{idx + 1}</span>
                 </div>
-                
-                <div className="md:w-1/3 bg-gray-800 p-6 md:p-8 overflow-y-auto">
-                  <h2 className="text-2xl font-bold text-white mb-6">{selectedImage.category} Analysis</h2>
-                  
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-blue-400 mb-3">Species Included</h3>
-                    <div className="space-y-3">
-                      {selectedImage.species.map((specie, idx) => (
-                        <div key={idx} className="flex items-start bg-gray-700/50 rounded-lg p-3">
-                          <div className="bg-blue-500 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mr-3">
-                            <span className="text-white font-bold">{idx + 1}</span>
-                          </div>
-                          <p className="text-gray-200">{specie}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="mb-6">
-                    <h3 className="text-lg font-semibold text-blue-400 mb-3">Analysis Details</h3>
-                    <p className="text-gray-300">
-                      This Venn diagram illustrates orthologous gene clusters shared between the species. 
-                      The overlapping regions represent common genes while unique regions show species-specific genes.
-                    </p>
-                  </div>
-                  
-                  <div className="flex gap-3">
-                    <button className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
-                      Download Image
-                    </button>
-                    <button className="flex-1 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors">
-                      View Report
-                    </button>
-                  </div>
-                </div>
+                <p className="text-gray-200 text-sm md:text-base">{specie}</p>
               </div>
-            </div>
+            ))}
           </div>
-        )}
+        </div>
+        
+        <div className="mb-5">
+          <h3 className="text-md md:text-lg font-semibold text-blue-400 mb-2">Analysis Details</h3>
+          <p className="text-gray-300 text-sm md:text-base">
+            This Venn diagram illustrates orthologous gene clusters shared between the species. 
+            The overlapping regions represent common genes while unique regions show species-specific genes.
+          </p>
+        </div>
+        
+        <div className="flex flex-col sm:flex-row gap-2">
+          <button className="flex-1 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-sm md:text-base">
+            Download Image
+          </button>
+          <button className="flex-1 py-2 md:py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors text-sm md:text-base">
+            View Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
       </div>
     </Layout>
   );

@@ -79,16 +79,17 @@ const Navbar = () => {
           {navItems.map((item) => (
             <Typography
               as="li"
-              variant="small"
-              className="p-1 font-medium"
+              variant="large" 
+
+              className="p-1 text-black font-medium"
               key={item.name}
             >
               <Link
                 to={item.path}
-                className={`flex items-center rounded-md px-3 py-2 transition-colors ${
+                className={`flex items-center  px-3 py-2 transition-colors ${
                   isActive(item.path)
-                    ? 'bg-blue-500 text-white'
-                    : 'hover:bg-blue-50'
+                  ? 'border-b-2 border-purple-400  text-purple-400'
+                    : ''
                 }`}
                 onClick={() => setOpenNav(false)}
               >
